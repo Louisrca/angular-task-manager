@@ -1,0 +1,44 @@
+<div class="p-6">
+  <h1 class="mb-6 text-2xl font-bold text-gray-800">Dashboard</h1>
+
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+    @if (isAdmin()) {
+    <div class="rounded-xl bg-blue-600 p-6 text-white shadow">
+      <p class="text-sm opacity-80">Total des tâches</p>
+      <p class="mt-2 text-3xl font-extrabold">
+        {{ totalTasks() }}
+      </p>
+    </div>
+    }
+
+    <div class="rounded-xl bg-green-600 p-6 text-white shadow">
+      <p class="text-sm opacity-80">Tâches terminées</p>
+      <p class="mt-2 text-3xl font-extrabold">
+        {{ doneTasks() }}
+      </p>
+    </div>
+
+    <div class="rounded-xl bg-yellow-500 p-6 text-white shadow">
+      <p class="text-sm opacity-80">Mes tâches</p>
+      <p class="mt-2 text-3xl font-extrabold">
+        {{ myTasks() }}
+      </p>
+    </div>
+
+  </div><br>
+
+  <div class="w-full">
+    <div class="mt-2 text-center text-sm font-medium text-gray-700">
+      {{ completionPercent() }}%
+    </div>
+
+    <div class="h-3 w-full rounded-full bg-gray-200 overflow-hidden">
+      <div class="h-full rounded-full bg-sky-600 transition-all duration-500 ease-out"
+        [style.width.%]="completionPercent()"></div>
+    </div>
+
+  </div>
+
+
+</div>

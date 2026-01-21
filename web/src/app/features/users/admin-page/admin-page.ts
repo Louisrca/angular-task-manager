@@ -17,9 +17,7 @@ export class AdminPage {
   private tasksService = inject(TaskService);
 
   users = this.usersService.users;
-  deletedUsers = this.usersService.deletedUsers;
   tasks: WritableSignal<Tasks[]> = signal<Tasks[]>([]);
-  hiddenUserId = signal<number | null>(null);
   message = signal<string | null>(null);
 
   currentUser: User | null = this.authService.currentUser()
@@ -46,6 +44,12 @@ export class AdminPage {
 
   deleteUser(user: User) {
     this.usersService.deleteUser(user);
+    if (confirm(`Etes-vous sûr de vouloir supprimer ${user.username} ?`)) {
+      this.message.set(`${user.username} banni avec succès`);
+      setTimeout(()=>{
+        this.message.set(null)
+      }, 3000)
+    }
   }
   isCurrentUser(username: string): boolean {
     return username !== this.currentUser?.username ;
