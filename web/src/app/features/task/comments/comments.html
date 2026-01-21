@@ -1,0 +1,46 @@
+<div class="mt-4 gap-1.5">
+  <h2 class="text-2xl font-semibold text-slate-600 mb-4">Commentaires</h2>
+  @if (comments.length === 0) {
+    <p class="text-sm text-gray-500">
+      Pas encore de commentaire! Ajoutez-en pour débuter une conversation.
+    </p>
+  } @else {
+    <div class="space-y-4 border border-gray-200 rounded-lg">
+      @for (comment of comments; track comment.id) {
+        <div class="m-2 border-b border-gray-200 last:border-b-0">
+          <div class="w-full mb-1">
+            <div class="flex flex-row justify-between items-center">
+              <p class="text-md font-medium" [class]="getUserColor(comment.createdBy.username)">
+                {{ comment.createdBy.username }}
+              </p>
+              <p class="text-xs text-slate-400">{{ comment.createdAt | date }}</p>
+            </div>
+          </div>
+          <p class="text-gray-800 text-sm">{{ comment.content }}</p>
+        </div>
+      }
+    </div>
+  }
+
+  <form [formGroup]="commentForm" class="mt-4">
+    <div class="mt-1">
+      <textarea
+        id="comment"
+        name="comment"
+        rows="2"
+        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+        placeholder="Ecrivez votre commentaire ici..."
+        formControlName="comment"
+      ></textarea>
+    </div>
+    <div class="mt-2 flex justify-end">
+      <button
+        type="submit"
+        class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        (click)="onSubmit()"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

@@ -3,11 +3,12 @@ import { StatusBadge } from '../../../shared/status-badge/status-badge';
 import { Tasks } from '../interfaces/tasks';
 import { TaskService } from '../services/taskService';
 import { DatePipe } from '@angular/common';
+import { Comments } from '../comments/comments';
 
 @Component({
   selector: 'app-details-task',
   templateUrl: './details-task.html',
-  imports: [StatusBadge, DatePipe],
+  imports: [StatusBadge, Comments, DatePipe],
 })
 export class DetailsTask {
   taskService = inject(TaskService);
