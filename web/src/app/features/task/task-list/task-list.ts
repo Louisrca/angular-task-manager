@@ -1,23 +1,16 @@
-import {
-  Component,
-  DestroyRef,
-  inject,
-  OnInit,
-  signal,
-  computed,
-} from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { TaskService } from '../services/taskService';
-import { Status, Tasks } from '../interfaces/tasks';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TaskStatusPipe } from '../pipe/task-status-pipe';
 import { DatePipe } from '@angular/common';
-  
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
+import { StatusBadge } from '../../../shared/status-badge/status-badge';
+import { Status, Tasks } from '../interfaces/tasks';
+import { TaskService } from '../services/taskService';
+
 type TaskFilter = 'ALL' | 'TODO' | 'DONE';
 
 @Component({
   selector: 'app-task-list',
-  imports: [RouterLink, TaskStatusPipe, DatePipe],
+  imports: [RouterLink, StatusBadge, DatePipe],
   templateUrl: './task-list.html',
   styleUrl: './task-list.css',
 })
@@ -33,11 +26,9 @@ export class TaskList implements OnInit {
 
     switch (this.filter()) {
       case 'TODO':
-        return tasks.filter(
-          t => t.status === Status.PENDING
-        );
+        return tasks.filter((t) => t.status === Status.PENDING);
       case 'DONE':
-        return tasks.filter(t => t.status === Status.DONE);
+        return tasks.filter((t) => t.status === Status.DONE);
       default:
         return tasks;
     }
