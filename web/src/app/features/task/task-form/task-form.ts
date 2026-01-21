@@ -4,8 +4,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Tasks } from '../interfaces/tasks';
 import { TaskService } from '../services/taskService';
 import { Router, RouterLink } from '@angular/router';
-import { UsersService } from '../../users/users-service';
 import { User } from '../../../core/auth/interfaces/user';
+import { UsersService } from '../../users/services/users-service';
 
 @Component({
   selector: 'app-task-form',
@@ -27,10 +27,7 @@ export class TaskForm implements OnInit {
 
   ngOnInit() {
     if (this.authService.currentUser()?.role === 'ADMIN') {
-      this.usersService.getAllUsers().subscribe({
-        next: (users: User[]) => this.users.set(users),
-        error: () => console.log('error'),
-      });
+      this.usersService.loadUsers()
     }
 
     if (this.id) {
