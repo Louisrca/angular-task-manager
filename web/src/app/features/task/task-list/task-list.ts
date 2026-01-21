@@ -11,12 +11,13 @@ import { TaskService } from '../services/taskService';
 import { Status, Tasks } from '../interfaces/tasks';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TaskStatusPipe } from '../pipe/task-status-pipe';
-
+import { DatePipe } from '@angular/common';
+  
 type TaskFilter = 'ALL' | 'TODO' | 'DONE';
 
 @Component({
   selector: 'app-task-list',
-  imports: [RouterLink, TaskStatusPipe],
+  imports: [RouterLink, TaskStatusPipe, DatePipe],
   templateUrl: './task-list.html',
   styleUrl: './task-list.css',
 })
@@ -51,21 +52,23 @@ export class TaskList implements OnInit {
       .getAllTask()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (tasks) => this.tasks.set(tasks),
+        next: (tasks: Tasks[]) => this.tasks.set(tasks),
         error: () => console.log('error'),
       });
   }
 
   startTask(task: Tasks) {
-    this.taskService
-      .updateTask(task.id, { ...task, status: Status.IN_PROGRESS })
-      .subscribe(() => this.getTasks());
+    this.taskService.updateTask(task.id, { ...task, status: Status.IN_PROGRESS }).subscribe({
+      next: () => this.getTasks(),
+      error: () => console.log('error'),
+    });
   }
 
   markAsDone(task: Tasks) {
-    this.taskService
-      .updateTask(task.id, { ...task, status: Status.DONE })
-      .subscribe(() => this.getTasks());
+    this.taskService.updateTask(task.id, { ...task, status: Status.DONE }).subscribe({
+      next: () => this.getTasks(),
+      error: () => console.log('error'),
+    });
   }
 
   setFilter(filter: TaskFilter) {
@@ -82,6 +85,29 @@ export class TaskList implements OnInit {
         return 'bg-green-100 text-green-800';
       default:
         return 'bg-gray-100 text-gray-800';
+    }
+  }
+
+  deleteTask(taskId: number | undefined) {
+    if (taskId == null) return;
+    if (confirm('Etes-vous sûr de vouloir supprimer cette tâche ?')) {
+      this.taskService.deleteTask(taskId).subscribe({
+        next: () => {
+          this.tasks.update((tasks) => tasks.filter((task) => task.id !== taskId));
+        },
+      });
+    }
+  }
+
+  backStatus(task: Tasks) {
+    if (task.status === Status.IN_PROGRESS) {
+      this.taskService.updateTask(task.id, { ...task, status: Status.PENDING }).subscribe({
+        next: () => this.getTasks(),
+      });
+    } else if (task.status === Status.DONE) {
+      this.taskService.updateTask(task.id, { ...task, status: Status.IN_PROGRESS }).subscribe({
+        next: () => this.getTasks(),
+      });
     }
   }
 }
