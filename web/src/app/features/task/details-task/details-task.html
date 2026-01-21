@@ -1,6 +1,28 @@
 <div class="flex flex-col gap-4 max-w-3xl mx-auto mt-18">
-  <div class="text-sm text-indigo-600 hover:underline w-fit">
-    <button class="cursor-pointer" (click)="goBack()">Retour</button>
+  <div class="w-fit">
+    <button
+      class="text-sm cursor-pointer text-indigo-600 hover:underline flex items-center flex-row"
+      (click)="goBack()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="oklch(51.1% 0.262 276.966)"
+      >
+        <g fill="oklch(51.1% 0.262 276.966)" fill-rule="evenodd" clip-rule="evenodd">
+          <path
+            d="M8.974 14.768a1 1 0 0 1-1.409-.128l-3.333-4a1 1 0 1 1 1.536-1.28l3.334 4a1 1 0 0 1-.128 1.408Z"
+          ></path>
+          <path
+            d="M8.974 5.232a1 1 0 0 1 .128 1.408l-3.334 4a1 1 0 1 1-1.536-1.28l3.333-4a1 1 0 0 1 1.409-.128Z"
+          ></path>
+          <path d="M6 10a1 1 0 0 1 1-1h8a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Z"></path>
+        </g>
+      </svg>
+      Retour
+    </button>
   </div>
   <div class="border border-slate-200 rounded-lg">
     <div class="flex flex-col border-b border-b-slate-200 rounded-t-lg p-2">
@@ -31,4 +53,5 @@
       </div>
     </div>
   </div>
+  <app-comments [taskId]="task()?.id"></app-comments>
 </div>
