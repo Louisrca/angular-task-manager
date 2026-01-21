@@ -71,6 +71,10 @@ export class TaskList implements OnInit {
     });
   }
 
+  setFilter(filter: TaskFilter) {
+    this.filter.set(filter);
+  }
+
   getStatusColor(status: Status | undefined) {
     switch (status) {
       case Status.PENDING:
