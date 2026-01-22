@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/tasks/entities/task-status.enum.ts"],"sourcesContent":["export enum TaskStatus {\n  PENDING = 'PENDING',\n  IN_PROGRESS = 'IN_PROGRESS',\n  DONE = 'DONE',\n}\n"],"names":["TaskStatus"],"mappings":";;;;+BAAYA;;;eAAAA;;;AAAL,IAAA,AAAKA,oCAAAA;;;;WAAAA"}
