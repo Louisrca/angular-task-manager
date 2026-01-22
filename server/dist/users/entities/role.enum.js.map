@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../src/users/entities/role.enum.ts"],"sourcesContent":["export enum UserRole {\n  USER = 'USER',\n  ADMIN = 'ADMIN',\n}\n"],"names":["UserRole"],"mappings":";;;;+BAAYA;;;eAAAA;;;AAAL,IAAA,AAAKA,kCAAAA;;;WAAAA"}
